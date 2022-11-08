@@ -3,7 +3,7 @@ class Sprite {
     position,
     imageSrc,
     scale = 1,
-    framesMax = 1,
+    framesMax = 20,
     offset = { x: 0, y: 0 }
   }) {
     this.position = position
@@ -18,7 +18,23 @@ class Sprite {
     this.framesHold = 5
     this.offset = offset
   }
-
+  jump() {
+    if (!this.jumping) {
+      this.jumping = true;
+      this.velocity.y -= 10; 
+    }
+  }
+  jumpLimit(){
+    if(!this.jumping){
+      this.velocity.y -=18;
+      this.jumping =false;
+      switch (event.key) {
+      case 'ArrowUp':
+        enemy.velocity.y = -20
+        break
+      }
+    }
+  }
   draw() {
     c.drawImage(
       this.image,
@@ -107,7 +123,7 @@ class Fighter extends Sprite {
     this.attackBox.position.x = this.position.x + this.attackBox.offset.x
     this.attackBox.position.y = this.position.y + this.attackBox.offset.y
 
-    // draw the attack box
+    // saldırı ve hasar bloklarını göster
     // c.fillRect(
     //   this.attackBox.position.x,
     //   this.attackBox.position.y,
@@ -131,7 +147,7 @@ class Fighter extends Sprite {
   }
 
   takeHit() {
-    this.health -= 20
+    this.health -= 10
 
     if (this.health <= 0) {
       this.switchSprite('death')
@@ -145,14 +161,12 @@ class Fighter extends Sprite {
       return
     }
 
-    // overriding all other animations with the attack animation
     if (
       this.image === this.sprites.attack1.image &&
       this.framesCurrent < this.sprites.attack1.framesMax - 1
     )
       return
 
-    // override when fighter gets hit
     if (
       this.image === this.sprites.takeHit.image &&
       this.framesCurrent < this.sprites.takeHit.framesMax - 1
@@ -214,5 +228,4 @@ class Fighter extends Sprite {
         }
         break
     }
-  }
-}
+  }}

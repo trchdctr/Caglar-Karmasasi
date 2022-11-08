@@ -1,25 +1,28 @@
 const canvas = document.querySelector('canvas')
 const c = canvas.getContext('2d')
 
+
+
 canvas.width = 1024
 canvas.height = 576
 
 c.fillRect(0, 0, canvas.width, canvas.height)
 
-const gravity = 0.7
+const gravity = 1.8
 
 const background = new Sprite({
   position: {
     x: 0,
     y: 0
   },
-  imageSrc: './img/background1.png'
+  imageSrc: './img/ww1.png',
+  framesMax: 4,
 })
 
 const shop = new Sprite({
   position: {
     x: 1025,
-    y: 790
+    y: 577
   },
   imageSrc: './img/shop.png',
   scale: 2.75,
@@ -28,15 +31,16 @@ const shop = new Sprite({
 
 const player = new Fighter({
   position: {
-    x: 50,
+    x: 100,
     y: 0
   },
   velocity: {
     x: 0,
     y: 0
   },
+  color:'red',
   offset: {
-    x: 0,
+    x: -50,
     y: 0
   },
   imageSrc: './img/samuraiMack/Idle.png',
@@ -44,7 +48,7 @@ const player = new Fighter({
   scale: 2.5,
   offset: {
     x: 215,
-    y: 70
+    y: 90
   },
   sprites: {
     idle: {
@@ -68,7 +72,7 @@ const player = new Fighter({
       framesMax: 6
     },
     takeHit: {
-      imageSrc: './img/samuraiMack/Take Hit - white silhouette.png',
+      imageSrc: './img/samuraiMack/Take Hit.png',
       framesMax: 4
     },
     death: {
@@ -84,7 +88,9 @@ const player = new Fighter({
     width: 160,
     height: 50
   }
+
 })
+this.jumping = false;
 
 const enemy = new Fighter({
   position: {
@@ -105,7 +111,7 @@ const enemy = new Fighter({
   scale: 2.5,
   offset: {
     x: 215,
-    y: 80
+    y: 100
   },
   sprites: {
     idle: {
@@ -180,44 +186,45 @@ function animate() {
   player.velocity.x = 0
   enemy.velocity.x = 0
 
-  // player movement
-
+  // oyuncunun hareketi
+  
   if (keys.a.pressed && player.lastKey === 'a') {
-    player.velocity.x = -4
+    player.velocity.x = -9
     player.switchSprite('run')
   } else if (keys.d.pressed && player.lastKey === 'd') {
-    player.velocity.x = 4
+    player.velocity.x = 9
     player.switchSprite('run')
   } else {
     player.switchSprite('idle')
   }
 
-  // jumping
+  // zıplama
   if (player.velocity.y < 0) {
     player.switchSprite('jump')
+    player.jump();
   } else if (player.velocity.y > 0) {
     player.switchSprite('fall')
   }
 
-  // Enemy movement
+  // 2.oyuncunun hareketi
   if (keys.ArrowLeft.pressed && enemy.lastKey === 'ArrowLeft') {
-    enemy.velocity.x = -4
+    enemy.velocity.x = -9
     enemy.switchSprite('run')
   } else if (keys.ArrowRight.pressed && enemy.lastKey === 'ArrowRight') {
-    enemy.velocity.x = 4
+    enemy.velocity.x = 9
     enemy.switchSprite('run')
   } else {
     enemy.switchSprite('idle')
   }
 
-  // jumping
+  // zıplama
   if (enemy.velocity.y < 0) {
     enemy.switchSprite('jump')
   } else if (enemy.velocity.y > 0) {
     enemy.switchSprite('fall')
   }
 
-  // detect for collision & enemy gets hit
+
   if (
     rectangularCollision({
       rectangle1: player,
@@ -234,12 +241,11 @@ function animate() {
     })
   }
 
-  // if player misses
+  // ıskalama
   if (player.isAttacking && player.framesCurrent === 4) {
     player.isAttacking = false
   }
-
-  // this is where our player gets hit
+  // oyuncu hasar alma
   if (
     rectangularCollision({
       rectangle1: enemy,
@@ -256,12 +262,12 @@ function animate() {
     })
   }
 
-  // if player misses
+  // ıskalama
   if (enemy.isAttacking && enemy.framesCurrent === 2) {
     enemy.isAttacking = false
   }
 
-  // end game based on health
+  // cana bağlı oyunu bitir
   if (enemy.health <= 0 || player.health <= 0) {
     determineWinner({ player, enemy, timerId })
   }
@@ -320,7 +326,7 @@ window.addEventListener('keyup', (event) => {
       break
   }
 
-  // enemy keys
+  // düşman
   switch (event.key) {
     case 'ArrowRight':
       keys.ArrowRight.pressed = false
@@ -330,3 +336,4 @@ window.addEventListener('keyup', (event) => {
       break
   }
 })
+

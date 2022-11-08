@@ -1,7 +1,6 @@
-*{
-  font-family: 'Hind Siliguri', sans-serif;
-}
 html{
-  scroll-behavior: smooth;
-  font-family: 'Hind Siliguri', sans-serif;
+    overscroll-behavior:smooth;
+}
+body,div{
+    font-family: 'VT323', monospace;
 }
