@@ -1,6 +1,8 @@
 const canvas = document.querySelector('canvas')
 const c = canvas.getContext('2d')
-
+//add borders 
+c.fillStyle = 'black'
+c.fillRect(0, 0, canvas.width, canvas.height)
 
 
 canvas.width = 1024
@@ -68,7 +70,7 @@ const player = new Fighter({
       framesMax: 2
     },
     attack1: {
-      imageSrc: './img/samuraiMack/Attack1.png',
+      imageSrc: './img/samuraiMack/Attack2.png',
       framesMax: 6
     },
     takeHit: {
@@ -92,7 +94,7 @@ const player = new Fighter({
 })
 this.jumping = false;
 
-const enemy = new Fighter({
+/*const enemy = new Fighter({
   position: {
     x: 900,
     y: 100
@@ -151,9 +153,69 @@ const enemy = new Fighter({
     width: 170,
     height: 50
   }
-})
+})*/
 
-console.log(player)
+const enemy = new Fighter({
+  position: {
+    x: 900,
+    y: 100
+  },
+  velocity: {
+    x: 0,
+    y: 0
+  },
+  color: 'blue',
+  offset: {
+    x: -50,
+    y: 0
+  },
+  imageSrc: './img/martialHero/Idle.png',
+  framesMax: 10,
+  scale: 2.5,
+  offset: {
+    x: 200,
+    y: -15
+  },
+  sprites: {
+    idle: {
+      imageSrc: './img/martialHero/Idle.png',
+      framesMax: 10
+    },
+    run: {
+      imageSrc: './img/martialHero/Run.png',
+      framesMax: 8
+    },
+    jump: {
+      imageSrc: './img/martialHero/Jump.png',
+      framesMax: 3
+    },
+    fall: {
+      imageSrc: './img/martialHero/Fall.png',
+      framesMax: 3
+    },
+    attack1: {
+      imageSrc: './img/martialHero/Attack2.png',
+      framesMax: 6
+    },
+    takeHit: {
+      imageSrc: './img/martialHero/Take Hit.png',
+      framesMax: 3
+    },
+    death: {
+      imageSrc: './img/martialHero/Death.png',
+      framesMax: 11
+    }
+  },
+  attackBox: {
+    offset: {
+      x: -170,
+      y: 50
+    },
+    width: 170,
+    height: 50
+  }
+
+})
 
 const keys = {
   a: {

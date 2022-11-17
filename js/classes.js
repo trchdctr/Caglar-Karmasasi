@@ -24,17 +24,18 @@ class Sprite {
       this.velocity.y -= 10; 
     }
   }
-  jumpLimit(){
-    if(!this.jumping){
-      this.velocity.y -=18;
-      this.jumping =false;
-      switch (event.key) {
-      case 'ArrowUp':
-        enemy.velocity.y = -20
-        break
-      }
+
+  jumpLimit() {
+    if (this.position.y > 400) {
+      this.jumping = false;
+      this.position.y = 400;
+      this.velocity.y = 0;
+      falling=true;
+      this.case = 'fall';
+      
     }
-  }
+    }
+
   draw() {
     c.drawImage(
       this.image,
@@ -119,7 +120,7 @@ class Fighter extends Sprite {
     this.draw()
     if (!this.dead) this.animateFrames()
 
-    // attack boxes
+    
     this.attackBox.position.x = this.position.x + this.attackBox.offset.x
     this.attackBox.position.y = this.position.y + this.attackBox.offset.y
 
@@ -134,16 +135,50 @@ class Fighter extends Sprite {
     this.position.x += this.velocity.x
     this.position.y += this.velocity.y
 
-    // gravity function
+    // yer çekimi fonksiyonu
     if (this.position.y + this.height + this.velocity.y >= canvas.height - 96) {
       this.velocity.y = 0
-      this.position.y = 330
+      this.position.y = 350
     } else this.velocity.y += gravity
   }
 
   attack() {
     this.switchSprite('attack1')
     this.isAttacking = true
+  }
+  //sınırları aşmaması için
+  leftBorder() {
+    if (this.position.x < 0) {
+      this.position.x = 0
+    }
+  }
+  rightBorder() {
+    if (this.position.x > canvas.width - this.width) {
+      this.position.x = canvas.width - this.width
+    }
+  }
+
+  switchSprite(sprite) {
+    this.image = this.sprites[sprite].image
+    this.framesMax = this.sprites[sprite].framesMax
+    this.framesCurrent = 0
+    this.framesElapsed = 0
+    this.framesHold = this.sprites[sprite].framesHold
+    this.offset = this.sprites[sprite].offset
+  }
+
+  draw() {
+    c.drawImage(
+      this.image,
+      this.framesCurrent * (this.image.width / this.framesMax),
+      0,
+      this.image.width / this.framesMax,
+      this.image.height,
+      this.position.x - this.offset.x,
+      this.position.y - this.offset.y,
+      (this.image.width / this.framesMax) * this.scale,
+      this.image.height * this.scale
+    )
   }
 
   takeHit() {
