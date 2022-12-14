@@ -14,11 +14,11 @@ function determineWinner({ player, enemy, timerId }) {
   clearTimeout(timerId)
   document.querySelector('#displayText').style.display = 'flex'
   if (player.health === enemy.health) {
-    document.querySelector('#displayText').innerHTML = 'Berabere' + '<br>' + 'Yeniden oynamak için bana tıkla'
+    document.querySelector('#displayText').innerHTML = 'Berabere' + '<br>' + 'Kalan Süre:' + timer 
   } else if (player.health > enemy.health) {
-    document.querySelector('#displayText').innerHTML = '1.Oyuncu Kazandı'+ '<br>' + 'Yeniden oynamak için bana tıkla'
+    document.querySelector('#displayText').innerHTML = '1.Oyuncu Kazandı Canı:'  + player.health + '<br> '  + 'Kalan Süre:' + timer 
   } else if (player.health < enemy.health) {
-    document.querySelector('#displayText').innerHTML = '2.Oyuncu Kazandı' + '<br>' + 'Yeniden oynamak için bana tıkla'
+    document.querySelector('#displayText').innerHTML = '2.Oyuncu Kazandı Canı:'  + enemy.health +  '<br> ' + 'Kalan Süre:' + timer 
   }
 }
 
@@ -30,7 +30,6 @@ function decreaseTimer() {
     timer--
     document.querySelector('#timer').innerHTML = timer
   }
-
   if (timer === 0) {
     determineWinner({ player, enemy, timerId })
   }

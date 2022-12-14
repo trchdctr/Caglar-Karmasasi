@@ -1,6 +1,6 @@
 const canvas = document.querySelector('canvas')
 const c = canvas.getContext('2d')
-//add borders 
+
 c.fillStyle = 'black'
 c.fillRect(0, 0, canvas.width, canvas.height)
 
@@ -11,6 +11,36 @@ canvas.height = 576
 c.fillRect(0, 0, canvas.width, canvas.height)
 
 const gravity = 1.8
+const friction = 0.9
+
+function addBorders() {
+  if (player.position.x < 0) {
+    player.position.x = 0
+  }
+  if (player.position.x + player.width > canvas.width) {
+    player.position.x = canvas.width - player.width
+  }
+  if (player.position.y < 0) {
+    player.position.y = 0
+  }
+  if (player.position.y + player.height > canvas.height) {
+    player.position.y = canvas.height - player.height
+  }
+
+  if (enemy.position.x < 0) {
+    enemy.position.x = 0
+  }
+  if (enemy.position.x + enemy.width > canvas.width) {
+    enemy.position.x = canvas.width - enemy.width
+  }
+  if (enemy.position.y < 0) {
+    enemy.position.y = 0
+  }
+  if (enemy.position.y + enemy.height > canvas.height) {
+    enemy.position.y = canvas.height - enemy.height
+  }
+}
+
 
 const background = new Sprite({
   position: {
@@ -224,10 +254,10 @@ const keys = {
   d: {
     pressed: false
   },
-  ArrowRight: {
+  L: {
     pressed: false
   },
-  ArrowLeft: {
+  J: {
     pressed: false
   }
 }
@@ -269,10 +299,10 @@ function animate() {
   }
 
   // 2.oyuncunun hareketi
-  if (keys.ArrowLeft.pressed && enemy.lastKey === 'ArrowLeft') {
+  if (keys.J.pressed && enemy.lastKey === 'j') {
     enemy.velocity.x = -9
     enemy.switchSprite('run')
-  } else if (keys.ArrowRight.pressed && enemy.lastKey === 'ArrowRight') {
+  } else if (keys.L.pressed && enemy.lastKey === 'l') {
     enemy.velocity.x = 9
     enemy.switchSprite('run')
   } else {
@@ -351,7 +381,7 @@ window.addEventListener('keydown', (event) => {
       case 'w':
         player.velocity.y = -20
         break
-      case ' ':
+      case 's':
         player.attack()
         break
     }
@@ -359,18 +389,18 @@ window.addEventListener('keydown', (event) => {
 
   if (!enemy.dead) {
     switch (event.key) {
-      case 'ArrowRight':
-        keys.ArrowRight.pressed = true
-        enemy.lastKey = 'ArrowRight'
+      case 'l':
+        keys.L.pressed = true
+        enemy.lastKey = 'l'
         break
-      case 'ArrowLeft':
-        keys.ArrowLeft.pressed = true
-        enemy.lastKey = 'ArrowLeft'
+      case 'j':
+        keys.J.pressed = true
+        enemy.lastKey = 'j'
         break
-      case 'ArrowUp':
+      case 'ı':
         enemy.velocity.y = -20
         break
-      case 'ArrowDown':
+      case 'k':
         enemy.attack()
 
         break
@@ -390,12 +420,54 @@ window.addEventListener('keyup', (event) => {
 
   // düşman
   switch (event.key) {
-    case 'ArrowRight':
-      keys.ArrowRight.pressed = false
+    case 'l':
+      keys.L.pressed = false
       break
-    case 'ArrowLeft':
-      keys.ArrowLeft.pressed = false
+    case 'j':
+      keys.J.pressed = false
       break
   }
 })
 
+const borders = {
+  top: 0,
+  bottom: canvas.height - player.height,
+  left: 0,
+  right: canvas.width - player.width
+}
+const enemyBorders = {
+  top: 0,
+  bottom: canvas.height - enemy.height,
+  left: 0,
+  right: canvas.width - enemy.width
+}
+
+//borders so characters stay in frame
+function bordersCollision({ player, borders }) {
+  if (player.position.y < borders.top) {
+    player.position.y = borders.top
+  }
+  if (object.position.y > borders.bottom) {
+    player.position.y = borders.bottom
+  }
+  if (player.position.x < borders.left) {
+    player.position.x = borders.left
+  }
+  if (player.position.x > borders.right) {
+    player.position.x = borders.right
+  }
+}
+function enemyBordersCollision({ enemy, borders }) {
+  if (enemy.position.y < borders.top) {
+    enemy.position.y = borders.top
+  }
+  if (enemy.position.y > borders.bottom) {
+    enemy.position.y = borders.bottom
+  }
+  if (enemy.position.x < borders.left) {
+    enemy.position.x = borders.left
+  }
+  if (enemy.position.x > borders.right) {
+    enemy.position.x = borders.right
+  }
+}
