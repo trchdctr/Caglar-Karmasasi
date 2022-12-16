@@ -5,41 +5,31 @@ c.fillStyle = 'black'
 c.fillRect(0, 0, canvas.width, canvas.height)
 
 
-canvas.width = 1024
-canvas.height = 576
-
-c.fillRect(0, 0, canvas.width, canvas.height)
+canvas.width = 1024 
+canvas.height = 576 
 
 const gravity = 1.8
 const friction = 0.9
 
-function addBorders() {
-  if (player.position.x < 0) {
-    player.position.x = 0
+//for god's sake pleaseput walls so characters cant move out of screen
+const walls = [
+  {
+    position: {
+      x: 0,
+      y: 0
+    },
+    width: 1024,
+    height: 576
+  },
+  {
+    position: {
+      x: 0,
+      y: 0
+    },
+    width: 1024,
+    height: 576
   }
-  if (player.position.x + player.width > canvas.width) {
-    player.position.x = canvas.width - player.width
-  }
-  if (player.position.y < 0) {
-    player.position.y = 0
-  }
-  if (player.position.y + player.height > canvas.height) {
-    player.position.y = canvas.height - player.height
-  }
-
-  if (enemy.position.x < 0) {
-    enemy.position.x = 0
-  }
-  if (enemy.position.x + enemy.width > canvas.width) {
-    enemy.position.x = canvas.width - enemy.width
-  }
-  if (enemy.position.y < 0) {
-    enemy.position.y = 0
-  }
-  if (enemy.position.y + enemy.height > canvas.height) {
-    enemy.position.y = canvas.height - enemy.height
-  }
-}
+]
 
 
 const background = new Sprite({
@@ -47,19 +37,35 @@ const background = new Sprite({
     x: 0,
     y: 0
   },
-  imageSrc: './img/ww1.png',
+  imageSrc: './img/bg/desert(16).png',
+  framesMax: 16,
+})
+/*
+const backgroundNumber2 = new Sprite({
+  position: {
+    x: 0,
+    y: 0
+  },
+  imageSrc: './img/bg/forest(4).png',
   framesMax: 4,
 })
-
-const shop = new Sprite({
+const backgroundNumber3 = new Sprite({
   position: {
-    x: 1025,
-    y: 577
+    x: 0,
+    y: 0
   },
-  imageSrc: './img/shop.png',
-  scale: 2.75,
-  framesMax: 6
+  imageSrc: './img/bg/train(24).png',
+  framesMax: 24,
 })
+const backgroundNumber4 = new Sprite({
+  position: {
+    x: 0,
+    y: 0
+  },
+  imageSrc: './img/bg/ww1(4).png',
+  framesMax: 4,
+})
+*/
 
 const player = new Fighter({
   position: {
@@ -122,7 +128,6 @@ const player = new Fighter({
   }
 
 })
-this.jumping = false;
 
 /*const enemy = new Fighter({
   position: {
@@ -184,7 +189,6 @@ this.jumping = false;
     height: 50
   }
 })*/
-
 const enemy = new Fighter({
   position: {
     x: 900,
@@ -269,7 +273,6 @@ function animate() {
   c.fillStyle = 'black'
   c.fillRect(0, 0, canvas.width, canvas.height)
   background.update()
-  shop.update()
   c.fillStyle = 'rgba(255, 255, 255, 0.15)'
   c.fillRect(0, 0, canvas.width, canvas.height)
   player.update()
@@ -277,6 +280,32 @@ function animate() {
 
   player.velocity.x = 0
   enemy.velocity.x = 0
+  //create walls to collide with player
+  if (player.position.x < 0) {
+    player.position.x = 0
+  } else if (player.position.x + player.width > canvas.width) {
+    player.position.x = canvas.width - player.width
+  }
+
+  //create walls to collide with enemy
+  if (enemy.position.x < 0) {
+    enemy.position.x = 0
+  } else if (enemy.position.x + enemy.width > canvas.width) {
+    enemy.position.x = canvas.width - enemy.width
+  }
+
+  //create top and bottom walls to collide 
+  if (player.position.y < 0) {
+    player.position.y = 0
+  } else if (player.position.y + player.height > canvas.height) {
+    player.position.y = canvas.height - player.height
+  }
+
+  if (enemy.position.y < 0) {
+    enemy.position.y = 0
+  } else if (enemy.position.y + enemy.height > canvas.height) {
+    enemy.position.y = canvas.height - enemy.height
+  }
 
   // oyuncunun hareketi
   
@@ -428,46 +457,3 @@ window.addEventListener('keyup', (event) => {
       break
   }
 })
-
-const borders = {
-  top: 0,
-  bottom: canvas.height - player.height,
-  left: 0,
-  right: canvas.width - player.width
-}
-const enemyBorders = {
-  top: 0,
-  bottom: canvas.height - enemy.height,
-  left: 0,
-  right: canvas.width - enemy.width
-}
-
-//borders so characters stay in frame
-function bordersCollision({ player, borders }) {
-  if (player.position.y < borders.top) {
-    player.position.y = borders.top
-  }
-  if (object.position.y > borders.bottom) {
-    player.position.y = borders.bottom
-  }
-  if (player.position.x < borders.left) {
-    player.position.x = borders.left
-  }
-  if (player.position.x > borders.right) {
-    player.position.x = borders.right
-  }
-}
-function enemyBordersCollision({ enemy, borders }) {
-  if (enemy.position.y < borders.top) {
-    enemy.position.y = borders.top
-  }
-  if (enemy.position.y > borders.bottom) {
-    enemy.position.y = borders.bottom
-  }
-  if (enemy.position.x < borders.left) {
-    enemy.position.x = borders.left
-  }
-  if (enemy.position.x > borders.right) {
-    enemy.position.x = borders.right
-  }
-}

@@ -264,3 +264,4 @@ class Fighter extends Sprite {
         break
     }
   }}
+
