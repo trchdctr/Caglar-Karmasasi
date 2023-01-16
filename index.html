@@ -4,54 +4,62 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <embed src="ost/theme.mp3" loop="true" autostart="true" width="0"
+    height="0">
     <title>Çağlar Karmaşası</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js" integrity="sha512-H6cPm97FAsgIKmlBA4s774vqoN24V5gSQL4yBTDOY2su2DeXZVhQPxFK4P6GPdnZqM9fg1G3cMv5wD7e6cFLZQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="index.js"></script>
 <script src="js/classes.js"></script>
 <script src="js/utils.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 </head>
 <body>
-<button id="forest">Arkaplan 1</button>
-<button id="desert">Arkaplan 2</button>
-<button id="ww1">Arkaplan 3</button>
-<button id="train">Arkaplan 4</button>
-<div class="columns is-multiline is-mobile">
-    <div id="character1" class="character  column is-one-quarter">
-        <img src="img/kenji/Fall.png" alt="character1">
-        <div class="characterName">a</div>
-    </div>
-    <div id="character2" class="character column is-one-quarter">
-        <img src="img/character2.png" alt="character2">
-        <div class="characterName">b</div>
-    </div>
-    <div id="character3" class="character column is-one-quarter">
-        <img src="img/character3.png" alt="character3">
-        <div class="characterName">c</div>
-    </div>
-    <div id="character4" class="character column is-one-quarter">
-        <img src="img/character4.png" alt="character4">
-        <div class="characterName">d</div>
-    </div>
-    <div id="character5" class="character column is-one-quarter">
-        <img src="img/kenji/Fall.png" alt="character1">
-        <div class="characterName">a</div>
-    </div>
-    <div id="character6" class="character column is-one-quarter">
-        <img src="img/character2.png" alt="character2">
-        <div class="characterName">b</div>
-    </div>
-    <div id="character7" class="character column is-one-quarter">
-        <img src="img/character3.png" alt="character3">
-        <div class="characterName">c</div>
-    </div>
-    <div id="character8" class="character column is-one-quarter">
-        <img src="img/character4.png" alt="character4">
-        <div class="characterName">d</div>
-    </div>
-</div>
+    <style>
+        html, body{
+            background-color: #242424;
+            color: white;
+            font-family: 'VT323', monospace;
+        }
+        h4{
+            font-size: 4em;
+            color: #d4aa00;
+            text-align: center;
+        }
+        h5{
+            font-size: 2em;
+            color: #d4aa00;
+            text-align: center;
+        }
+        .bosluk{
+            padding: 10em;
+            align-items: center;
+            text-align: center;
+        }
+        </style>
+        <h4 id="baslik" class="animate__animated animate__fadeInDown">ÇAĞLAR KARMAŞASI</h4>
+        <h5 id="yapimci" class="animate__animated animate__fadeInDown">Yapımcı: Devrim Zengin</h5>
+        <h5 id="detay" class="animate__animated animate__fadeIn">Yapım: 2022 <br> Yapım Aşaması: Alpha</h5>
+
+        <a href="scene1.html" class="is-large is-fullwidth bosluk"><img src="img/sel/forest.gif"  style="border-radius: 15px; width: 950px;
+            height: 240px;"></a>
+        <a href="scene2.html" class="is-large is-fullwidth bosluk"><img src="img/sel/desert.gif"  style="border-radius: 15px; width: 950px;
+            height: 240px;"></a>
+        <a href="scene3.html" class="is-large is-fullwidth bosluk"><img src="img/sel/ww1.gif"  style="border-radius: 15px; width: 950px;
+            height: 240px;"></a>
+        <a href="scene4.html" class="is-large is-fullwidth bosluk"><img src="img/sel/train.gif"  style="border-radius: 15px; width: 950px;
+            height: 240px;"></a>
+
+<!--gsap'i ekledim animasyonlar için kullanmak üzere-->
+<script
+src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"
+integrity="sha512-H6cPm97FAsgIKmlBA4s774vqoN24V5gSQL4yBTDOY2su2DeXZVhQPxFK4P6GPdnZqM9fg1G3cMv5wD7e6cFLZQ=="
+crossorigin="anonymous"
+referrerpolicy="no-referrer"
+></script>
 </body>
 </html>

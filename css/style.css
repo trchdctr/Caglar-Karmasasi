@@ -1,8 +1,11 @@
 html{
     scroll-behavior:smooth;
     overflow-y: hidden;
-    background-color: #252525;
+    background-color: #242424;
+    color: white;
+    font-family: 'VT323', monospace;
 }
+
 body,div,canvas{
     font-family: 'VT323', monospace;
     background-color: #252525;
@@ -28,5 +31,15 @@ main {
 
 address,p,h1,h2,h3,h4,strong,span{
     color:#f2f2f2;
+}
 
+.animate__animated.animate__fadeInDown {
+    animation-duration: 4s;
+    animation-fill-mode: both;
+
+}
+.animate__animated.animate__fadeIn{
+    animation-duration: 2s;
+    animation-fill-mode: both;
+    animation-delay: 3s;
 }

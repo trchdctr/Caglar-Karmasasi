@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="tr" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Çağlar Karmaşası</title>
+    <embed src="ost/desert.mp3" loop="true" autostart="true" width="0"
+    height="0">
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body style="background-color:#252525;">
+<!--make characters stay in frame-->
+  <section id="anaOyun">
+  <main class="oyun" style="background-color:#252525;">
+   <div
+    id="game"
+    style="
+      width: 100%;
+      height: 100%;
+      background-color: #252525;
+      border-radius: 15px 15px 0px 0px;
+      overflow: hidden;
+      padding-left: 8em;
+      padding-right: 4em;
+      padding-top: 2em;
+      padding-bottom: 2em;
+
+    "
+  >
+ <div style="position: relative; display: inline-block;">
+   <div
+     style="
+       position: absolute;
+       display: flex;
+       width: 100%;
+       align-items: center;
+     "
+   >
+     <!-- oyuncumuzun canı-->
+     <div
+       style="
+         position: relative;
+         width: 100%;
+         display: flex;
+         justify-content: flex-end;
+         background:rgb(65, 55, 5);
+         border-radius: 0px 0px 15px 15px;
+         outline: 2px solid rgb(65, 55, 5);       
+         "
+     >
+       <div style="height: 20px; width: 100%"></div>
+       <div
+         id="playerHealth"
+         style="
+           position: absolute;
+           background: #d4aa00;
+           top: 0;
+           right: 0;
+           bottom: 0;
+           width: 100%;
+           border-radius: 0px 0px 15px 15px;
+"
+       ></div>
+     </div>
+
+     <!-- sayaç -->
+     <div
+       id="timer"
+       style="
+         background-color: #252525;
+         width: 100px;
+         height: 50px;
+         flex-shrink: 0;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         color: #d4aa00;
+         border: 4px solid #252525;
+         font-family: 'VT323', monospace;
+         font-size:2em;
+         border-radius: 15px 0px 15px 0px;
+       "
+     >
+       10
+     </div>
+     <!-- düşmanın canı -->
+     <div
+       style="
+         position: relative;
+         width: 100%;
+         background:rgb(65, 55, 5);
+         border-radius: 0px 0px 15px 15px;
+         outline: 2px solid rgb(65, 55, 5);   
+"
+     >
+       <div style="height: 20px;"></div>
+       <div
+         id="enemyHealth"
+         style="
+           position: absolute;
+           background: #d4aa00;
+           top: 0;
+           right: 0;
+           bottom: 0;
+           left: 0;
+           border-radius: 0px 0px 15px 15px;
+         "
+       ></div>
+     </div>
+     <div></div>
+   </div>
+ <div class="is-centered" style="padding-left:26.5em; padding-top: 1em;"> 
+
+  <div
+  id="displayText"
+  style="
+   background-color: #252525;
+   width: 20%;
+   height: 50%; 
+   border-radius: 15px;
+   display: flex;
+   animation: fadein 2s;
+   align-items: center;
+   justify-content: center;
+   position: absolute;
+   color: #d4aa00;
+   text-align: center;  
+   font-family: 'VT323', monospace;
+   font-size:1.5em;
+   font-weight:bold;
+   outline: 2px solid rgb(65, 55, 5);
+   display:none;
+  "
+  class="is-centered is-responsive is-rounded"
+  >
+  </div>
+</div>
+   <canvas></canvas>
+ </div>
+  </div>
+  </div>
+</section>
+<section id="aciklama">
+  <div class="box is-centered has-text-centered" style="color: #d4aa00; background-color: #252525; border-radius: 0px 0px 15px 15px;">
+    <div class="content is-centered" style="background-color:#252525;">
+      <h1 class="title is-4" style="color:#f2f2f2;">Çağlar Karmaşası</h1>
+      <p style="color:#f2f2f2;">
+        <strong style="color:#f2f2f2;">Oyuncu 1</strong>
+        <address>
+          <strong style="color:#f2f2f2;">WAD</strong> ile hareket edebilirsin. <br>
+          <strong style="color:#f2f2f2;">S</strong> ile saldırabilirsin.
+          </address>
+      </p>
+      <p style="color:#f2f2f2;">
+        <strong style="color:#f2f2f2;">Oyuncu 2</strong> <address>
+          <strong style="color:#f2f2f2;">I,J,L</strong> ile hareket edebilirsin. <br>
+          <strong style="color:#f2f2f2;">K</strong> ile saldırabilirsin.
+          </address>
+      </p>
+  </div>
+</section>
+</main>
+<!--gsap'i ekledim animasyonlar için kullanmak üzere-->
+ <script
+   src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"
+   integrity="sha512-H6cPm97FAsgIKmlBA4s774vqoN24V5gSQL4yBTDOY2su2DeXZVhQPxFK4P6GPdnZqM9fg1G3cMv5wD7e6cFLZQ=="
+   crossorigin="anonymous"
+   referrerpolicy="no-referrer"
+ ></script>
+ <!--Javascript'in daha toplu olması için 3 ayrı sınıfa ayırdım -->
+ <script src="js/utils.js"></script>
+ <script src="js/classes.js"></script>
+ <script src="index02.js"></script>
+</body>
+  </body>
+</html>
